@@ -5,7 +5,6 @@ import getRatesData from './thunks';
 import { RatesState } from './types';
 
 const initialState: RatesState = {
-  top: [],
   rates: [],
   search: '',
   limit: constants.API.defaultLimit,
@@ -25,9 +24,7 @@ export const ratesSlice = createSlice({
         state.error = null;
       })
       .addCase(getRatesData.fulfilled, (state, action: PayloadAction<RateData[]>) => {
-        const data = action.payload;
-        state.top = data.slice(0, 3);
-        state.rates = data;
+        state.rates = action.payload;
         state.isLoading = false;
       })
       .addCase(getRatesData.rejected, (state, action) => {
