@@ -28,12 +28,10 @@ const Header = () => {
             const isPositive = percent > 0;
 
             return (
-              <div>
-                <F.Subtitle color={baseTheme.colors.primary}>{item.name}</F.Subtitle>
+              <div key={item.id}>
+                <F.Subtitle>{item.name}</F.Subtitle>
                 <FlexWrapper justifyContent="flex-start" alignItems="baseline">
-                  <F.Text1 color={baseTheme.colors.primary} mRight={8}>
-                    ${price}
-                  </F.Text1>
+                  <F.Text1 mRight={8}>${price}</F.Text1>
                   <F.Text1
                     color={isPositive ? baseTheme.colors.success : baseTheme.colors.error}
                     mRight={35}

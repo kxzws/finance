@@ -22,7 +22,7 @@ export const WalletButton = styled.button`
   border: none;
   border-radius: 25px;
   box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
-  transition: transform 0.2s ease 0s;
+  transition: transform ${({ theme }) => theme.durations.ms200}ms ease 0s;
 
   &:hover {
     transform: translateY(-2px);
