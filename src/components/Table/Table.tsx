@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
-import { ITableProps } from '../../types/interfaces';
+import { useNavigate } from 'react-router-dom';
 import visualizeBigDigit from '../../utils/visualizeBigDigit';
+import { ITableProps } from '../../types/interfaces';
+import { RateData } from '../../api/types';
 import baseTheme from '../../theme';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
@@ -8,9 +10,15 @@ import * as T from './styled';
 const Table = (props: ITableProps) => {
   const { data, loadData, isLoading } = props;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  const handleRowClick = (e: React.MouseEvent<unknown>, row: RateData) => {
+    navigate(`/id/${row.id}`);
+  };
 
   return (
     <T.StyledTableCont>
@@ -44,7 +52,7 @@ const Table = (props: ITableProps) => {
             const isPositive = percent24h > 0;
 
             return (
-              <T.TableRow key={item.id}>
+              <T.TableRow key={item.id} onClick={(event) => handleRowClick(event, item)}>
                 <T.TableCell>
                   <F.Subtitle>{item.name}</F.Subtitle>
                 </T.TableCell>

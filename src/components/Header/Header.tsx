@@ -15,7 +15,7 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getTopRatesData());
-  }, []);
+  }, [dispatch]);
 
   return (
     <H.StyledHeader>

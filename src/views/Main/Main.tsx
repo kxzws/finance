@@ -13,13 +13,13 @@ const StyledMain = styled.main`
 `;
 
 const Main = () => {
-  const { rates, search, limit, offset, isLoading } = useTypedSelector((state) => state.rates);
+  const { rates, limit, offset, isLoading } = useTypedSelector((state) => state.rates);
 
   const dispatch = useAppDispatch();
 
   const loadData = useCallback(() => {
-    dispatch(getRatesData({ search, limit, offset }));
-  }, [dispatch, search, limit, offset]);
+    dispatch(getRatesData({ limit, offset }));
+  }, [dispatch, limit, offset]);
 
   return (
     <StyledMain>

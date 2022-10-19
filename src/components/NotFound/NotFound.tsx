@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import CenterContainer from '../../styled/CenterContainer';
 import * as F from '../../styled/Fonts';
-import theme from '../../theme';
 
 const StyledNotFound = styled.section`
   padding: 20px 0;

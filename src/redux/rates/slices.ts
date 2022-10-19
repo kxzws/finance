@@ -6,7 +6,6 @@ import { RatesState } from './types';
 
 const initialState: RatesState = {
   rates: [],
-  search: '',
   limit: constants.API.defaultLimit,
   offset: constants.API.defaultOffset,
   isLoading: false,
