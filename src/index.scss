@@ -10,7 +10,7 @@ html {
 
 body {
   position: relative;
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: normal;
   line-height: normal;
@@ -29,4 +29,8 @@ a {
   &:focus {
     outline: none;
   }
+}
+
+button {
+  font: inherit;
 }
