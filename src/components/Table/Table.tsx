@@ -5,7 +5,9 @@ import { ITableProps } from '../../types/interfaces';
 import { RateData } from '../../api/types';
 import baseTheme from '../../theme';
 import FlexWrapper from '../../styled/FlexWrapper';
+import AddSettings from '../AddSettings/AddSettings';
 import Modal from '../Modal/Modal';
+import AddButton from '../../styled/AddButton';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
 
@@ -15,6 +17,7 @@ const Table = (props: ITableProps) => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [clickedCurrency, setClickedCurrency] = useState<RateData | null>(null);
 
   useEffect(() => {
     loadData();
@@ -22,15 +25,17 @@ const Table = (props: ITableProps) => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    setClickedCurrency(null);
   };
 
   const handleRowClick = (e: React.MouseEvent<unknown>, row: RateData) => {
     navigate(`/id/${row.id}`);
   };
 
-  const handleAddBtnClick = (e: React.MouseEvent<unknown>, currency: RateData) => {
+  const handleAddBtnClick = (e: React.MouseEvent<HTMLButtonElement>, currency: RateData) => {
     e.stopPropagation();
     setIsModalOpen(true);
+    setClickedCurrency(currency);
   };
 
   return (
@@ -69,9 +74,9 @@ const Table = (props: ITableProps) => {
                 <T.TableCell>
                   <FlexWrapper justifyContent="space-between" alignItems="baseline">
                     <F.Subtitle>{item.name}</F.Subtitle>
-                    <T.AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
+                    <AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
                       +
-                    </T.AddButton>
+                    </AddButton>
                   </FlexWrapper>
                 </T.TableCell>
                 <T.TableCell>${price}</T.TableCell>
@@ -90,7 +95,9 @@ const Table = (props: ITableProps) => {
         </T.TableBody>
       </T.StyledTable>
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <AddSettings data={clickedCurrency} />
+      </Modal>
     </T.StyledTableCont>
   );
 };

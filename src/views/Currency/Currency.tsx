@@ -9,6 +9,8 @@ import CenterContainer from '../../styled/CenterContainer';
 import * as F from '../../styled/Fonts';
 import FlexWrapper from '../../styled/FlexWrapper';
 import Chart from './Chart/Chart';
+import Modal from '../../components/Modal/Modal';
+import AddSettings from '../../components/AddSettings/AddSettings';
 
 const LAST_24HR = -24;
 
@@ -16,11 +18,28 @@ const StyledCurrency = styled.section`
   padding: 20px 0;
 `;
 
+const AddButton = styled.button`
+  padding: 12px 18px;
+  font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
+  font-weight: ${({ theme }) => theme.fonts.weights.w500};
+  color: #fff;
+  background-color: ${({ theme }) => theme.colors.bg};
+  border: none;
+  border-radius: 25px;
+  box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
+  transition: transform ${({ theme }) => theme.durations.ms200}ms ease 0s;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+`;
+
 const Currency = () => {
   const { id } = useParams();
 
   const [data, setData] = useState<RateData>();
   const [history, setHistory] = useState<CurrencyHistoryData[]>();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -34,14 +53,27 @@ const Currency = () => {
     })();
   }, [id]);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleAddBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsModalOpen(true);
+  };
+
   return (
     <StyledCurrency>
       <CenterContainer>
         {data && history ? (
           <>
-            <F.Title1 mBottom={20}>
-              Топ {data.rank}: {data.name} ({data.id})
-            </F.Title1>
+            <FlexWrapper justifyContent="flex-start" alignItems="flex-start">
+              <F.Title1 mRight={20} mBottom={20}>
+                Топ {data.rank}: {data.name} ({data.id})
+              </F.Title1>
+              <AddButton type="button" onClick={(event) => handleAddBtnClick(event)}>
+                Добавить
+              </AddButton>
+            </FlexWrapper>
 
             <FlexWrapper justifyContent="space-between" alignItems="center">
               <div>
@@ -71,6 +103,7 @@ const Currency = () => {
                   </F.Title2>
                 </FlexWrapper>
               </div>
+
               <div>
                 <FlexWrapper justifyContent="flex-start" alignItems="center">
                   <F.Subtitle color="rgba(0, 0, 0, 0.7)" mRight={10}>
@@ -89,6 +122,7 @@ const Currency = () => {
                   </F.Title2>
                 </FlexWrapper>
               </div>
+
               <div>
                 <FlexWrapper justifyContent="flex-start" alignItems="center">
                   <F.Subtitle color="rgba(0, 0, 0, 0.7)" mRight={10}>
@@ -112,6 +146,10 @@ const Currency = () => {
             </FlexWrapper>
 
             <Chart history={history} />
+
+            <Modal isOpen={isModalOpen} onClose={closeModal}>
+              <AddSettings data={data} />
+            </Modal>
           </>
         ) : (
           <F.Subtitle>Не найдено</F.Subtitle>

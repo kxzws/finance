@@ -2,18 +2,6 @@ import styled from 'styled-components';
 import { IModalProps } from '../../types/interfaces';
 import close from '../../assets/close.svg';
 
-export const StyledModal = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-  width: 60%;
-  height: 400px;
-  position: absolute;
-  top: 14%;
-  left: 20%;
-  z-index: 7;
-  background-color: #fff;
-  border-radius: 8px;
-`;
-
 export const StyledOverlay = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
   position: absolute;
@@ -23,6 +11,17 @@ export const StyledOverlay = styled.div<{ isOpen: boolean }>`
   left: 0;
   z-index: 5;
   background-color: rgba(0, 0, 0, 0.2);
+`;
+
+export const StyledModal = styled.div<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  width: 40%;
+  position: fixed;
+  top: 14%;
+  left: 30%;
+  z-index: 7;
+  background-color: #fff;
+  border-radius: 8px;
 `;
 
 export const CloseButton = styled.button`

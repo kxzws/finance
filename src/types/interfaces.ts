@@ -11,3 +11,7 @@ export interface IModalProps {
   onClose: () => void;
   children?: React.ReactNode;
 }
+
+export interface IAddSettingsProps {
+  data: RateData | null;
+}
