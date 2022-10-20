@@ -20,6 +20,20 @@ export const fetchRatesData = async (
   }
 };
 
+export const fetchSearchCurrencyData = async (search: string[]): Promise<RatesData> => {
+  try {
+    const QUERY_URL = 'assets';
+    const response = await coincapInstance.get(QUERY_URL, {
+      params: {
+        ids: search,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export const fetchCurrencyData = async (search: string): Promise<RatesData> => {
   try {
     const QUERY_URL = 'assets';

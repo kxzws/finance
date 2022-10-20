@@ -43,7 +43,7 @@ const Header = () => {
             );
           })}
           <H.Wallet>
-            <H.WalletButton>Портфель</H.WalletButton>
+            <H.WalletButton type="button">Портфель</H.WalletButton>
           </H.Wallet>
         </FlexWrapper>
       </CenterContainer>

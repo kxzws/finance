@@ -1,9 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import visualizeBigDigit from '../../utils/visualizeBigDigit';
 import { ITableProps } from '../../types/interfaces';
 import { RateData } from '../../api/types';
 import baseTheme from '../../theme';
+import FlexWrapper from '../../styled/FlexWrapper';
+import Modal from '../Modal/Modal';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
 
@@ -12,12 +14,23 @@ const Table = (props: ITableProps) => {
 
   const navigate = useNavigate();
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   useEffect(() => {
     loadData();
   }, [loadData]);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleRowClick = (e: React.MouseEvent<unknown>, row: RateData) => {
     navigate(`/id/${row.id}`);
+  };
+
+  const handleAddBtnClick = (e: React.MouseEvent<unknown>, currency: RateData) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
   };
 
   return (
@@ -34,7 +47,7 @@ const Table = (props: ITableProps) => {
               'Объём (24 ч.)',
               'Изменение (24 ч.)',
             ].map((name) => (
-              <T.TableCell>
+              <T.TableCell key={name}>
                 <F.Text2>{name}</F.Text2>
               </T.TableCell>
             ))}
@@ -54,7 +67,12 @@ const Table = (props: ITableProps) => {
             return (
               <T.TableRow key={item.id} onClick={(event) => handleRowClick(event, item)}>
                 <T.TableCell>
-                  <F.Subtitle>{item.name}</F.Subtitle>
+                  <FlexWrapper justifyContent="space-between" alignItems="baseline">
+                    <F.Subtitle>{item.name}</F.Subtitle>
+                    <T.AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
+                      +
+                    </T.AddButton>
+                  </FlexWrapper>
                 </T.TableCell>
                 <T.TableCell>${price}</T.TableCell>
                 <T.TableCell>${visualizeBigDigit(marketCap)}</T.TableCell>
@@ -71,6 +89,8 @@ const Table = (props: ITableProps) => {
           })}
         </T.TableBody>
       </T.StyledTable>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} />
     </T.StyledTableCont>
   );
 };
