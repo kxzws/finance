@@ -19,7 +19,7 @@ const Main = () => {
     dispatch(getRatesData({ limit, offset }));
   }, [dispatch, limit, offset]);
 
-  const getPageNumber = (lim: number, off: number) => {
+  const getPageNumber = (lim: number, off: number): number => {
     let page = 1;
     if (off > 0) {
       page = off / lim + 1;

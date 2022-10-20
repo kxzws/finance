@@ -25,7 +25,7 @@ export const fetchSearchCurrencyData = async (search: string[]): Promise<RatesDa
     const QUERY_URL = 'assets';
     const response = await coincapInstance.get(QUERY_URL, {
       params: {
-        ids: search,
+        ids: search.join(','),
       },
     });
     return response.data;

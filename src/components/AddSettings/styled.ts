@@ -15,6 +15,10 @@ export const AddInput = styled.input`
   border-radius: 6px;
 `;
 
+export const SuccessPar = styled.p<{ isSuccess: boolean }>`
+  display: ${({ isSuccess }) => (isSuccess ? 'block' : 'none')};
+`;
+
 export const AddButton = styled.button`
   margin: 20px 0 0;
   padding: 12px 18px;

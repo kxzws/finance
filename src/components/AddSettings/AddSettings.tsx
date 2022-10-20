@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { walletSlice } from '../../redux/wallet/slices';
 import { IAddSettingsProps } from '../../types/interfaces';
+import baseTheme from '../../theme';
 import * as F from '../../styled/Fonts';
 import * as A from './styled';
 
@@ -12,6 +13,14 @@ const AddSettings = (props: IAddSettingsProps) => {
   const dispatch = useAppDispatch();
 
   const [value, setValue] = useState<number | undefined>(0);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+  const toggleIsSuccess = () => {
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 1000);
+  };
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -27,6 +36,7 @@ const AddSettings = (props: IAddSettingsProps) => {
     e.preventDefault();
     if (data && value) {
       dispatch(addToWallet({ data, amount: value }));
+      toggleIsSuccess();
     }
   };
 
@@ -37,6 +47,9 @@ const AddSettings = (props: IAddSettingsProps) => {
         {data?.name} – ${parseFloat(data?.priceUsd).toFixed(2)}
       </F.Subtitle>
       <A.AddInput type="number" value={value} step="0.01" min="0" onChange={handleChange} />
+      <A.SuccessPar isSuccess={isSuccess}>
+        <F.Text1 color={baseTheme.colors.success}>Транзакция успешна</F.Text1>
+      </A.SuccessPar>
       <A.AddButton type="button" onClick={handleClick} disabled={!value}>
         Добавить
       </A.AddButton>

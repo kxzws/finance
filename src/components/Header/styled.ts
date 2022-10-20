@@ -7,13 +7,13 @@ export const StyledHeader = styled.header`
 
 export const Wallet = styled.div`
   margin-left: auto;
-  max-width: 300px;
   display: flexbox;
   justify-content: space-between;
   align-items: center;
 `;
 
 export const WalletButton = styled.button`
+  margin-right: 16px;
   padding: 12px 18px;
   font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
   font-weight: ${({ theme }) => theme.fonts.weights.w500};

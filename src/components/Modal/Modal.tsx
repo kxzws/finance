@@ -15,10 +15,10 @@ export const StyledOverlay = styled.div<{ isOpen: boolean }>`
 
 export const StyledModal = styled.div<{ isOpen: boolean }>`
   display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-  width: 40%;
+  width: 60%;
   position: fixed;
   top: 14%;
-  left: 30%;
+  left: 20%;
   z-index: 7;
   background-color: #fff;
   border-radius: 8px;

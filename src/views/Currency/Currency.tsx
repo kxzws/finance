@@ -58,6 +58,7 @@ const Currency = () => {
   };
 
   const handleAddBtnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsModalOpen(true);
   };
 
@@ -70,7 +71,7 @@ const Currency = () => {
               <F.Title1 mRight={20} mBottom={20}>
                 Топ {data.rank}: {data.name} ({data.id})
               </F.Title1>
-              <AddButton type="button" onClick={(event) => handleAddBtnClick(event)}>
+              <AddButton type="button" onClick={handleAddBtnClick}>
                 Добавить
               </AddButton>
             </FlexWrapper>

@@ -34,6 +34,7 @@ const Table = (props: ITableProps) => {
 
   const handleAddBtnClick = (e: React.MouseEvent<HTMLButtonElement>, currency: RateData) => {
     e.stopPropagation();
+    e.preventDefault();
     setIsModalOpen(true);
     setClickedCurrency(currency);
   };
