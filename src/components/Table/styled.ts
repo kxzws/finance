@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledTableCont = styled.section`
-  margin: 0 20px;
+  margin: 20px 20px 0;
   background-color: #fff;
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 6px;

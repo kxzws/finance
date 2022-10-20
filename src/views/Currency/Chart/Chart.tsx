@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { CurrencyHistoryData } from '../../../api/types';
 
 const Chart = (props: { history: CurrencyHistoryData[] }) => {

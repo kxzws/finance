@@ -15,7 +15,17 @@ const initialState: RatesState = {
 export const ratesSlice = createSlice({
   name: 'rates',
   initialState,
-  reducers: {},
+  reducers: {
+    firstPage(state) {
+      state.offset = constants.API.defaultOffset;
+    },
+    prevPage(state) {
+      state.offset -= state.limit;
+    },
+    nextPage(state) {
+      state.offset += state.limit;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getRatesData.pending, (state) => {
