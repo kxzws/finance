@@ -8,7 +8,6 @@ import Table from '../../components/Table/Table';
 
 const StyledMain = styled.main`
   padding: 20px 0;
-  min-height: 90vh;
   background-color: ${({ theme }) => theme.colors.secondary};
 `;
 
