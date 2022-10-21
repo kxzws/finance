@@ -1,13 +1,13 @@
 import { RateData } from '../../api/types';
 
-export type CurrencyAmount = {
-  [id: string]: number;
-};
+export interface WalletData {
+  data: RateData;
+  amount: number;
+}
 
 export interface WalletState {
-  oldData: RateData[];
+  oldData: WalletData[];
   newData: RateData[];
-  amount: Partial<CurrencyAmount>;
   isLoading: boolean;
   error: Error | null;
 }

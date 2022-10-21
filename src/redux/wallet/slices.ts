@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RateData } from '../../api/types';
 import getWalletNewData from './thunks';
-import { CurrencyAmount, WalletState } from './types';
+import { WalletData, WalletState } from './types';
 
 const initialState: WalletState = {
   oldData: [],
   newData: [],
-  amount: {},
   isLoading: false,
   error: null,
 };
@@ -15,27 +14,17 @@ export const walletSlice = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
-    getFromLocalStorage(
-      state,
-      action: PayloadAction<{ data: RateData[]; amount: Partial<CurrencyAmount> }>
-    ) {
-      const { data, amount } = action.payload;
-      state.oldData = data;
-      state.amount = amount;
+    getFromLocalStorage(state, action: PayloadAction<WalletData[]>) {
+      state.oldData = action.payload;
     },
-    addToWallet(state, action: PayloadAction<{ data: RateData; amount: number }>) {
-      const { data, amount } = action.payload;
-      const amountCopy = { ...state.amount, [data.id]: amount };
+    addToWallet(state, action: PayloadAction<WalletData>) {
+      state.oldData.push(action.payload);
+    },
+    removeFromWallet(state, action: PayloadAction<number>) {
+      const walletIndex = action.payload;
 
-      state.oldData.push(data);
-      state.amount = amountCopy;
-    },
-    removeFromWallet(state, action: PayloadAction<RateData>) {
-      const { id } = action.payload;
       const data = state.oldData.slice();
-
-      state.oldData = data.filter((item) => item.id !== id);
-      delete state.amount[id];
+      state.oldData = data.filter((_, ind) => ind !== walletIndex);
     },
   },
   extraReducers: (builder) => {

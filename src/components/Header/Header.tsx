@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import { RateData } from '../../api/types';
-import { CurrencyAmount } from '../../redux/wallet/types';
+import { WalletData } from '../../redux/wallet/types';
 import getTopRatesData from '../../redux/top/thunks';
 import baseTheme from '../../theme';
 import CenterContainer from '../../styled/CenterContainer';
@@ -11,31 +11,32 @@ import Modal from '../Modal/Modal';
 import Wallet from '../Wallet/Wallet';
 import * as F from '../../styled/Fonts';
 import * as H from './styled';
-import isObjectEmpty from '../../utils/isObjectEmpty';
 
 const Header = () => {
   const { top } = useTypedSelector((state) => state.top);
-  const { oldData, newData, amount } = useTypedSelector((state) => state.wallet);
+  const { oldData, newData } = useTypedSelector((state) => state.wallet);
 
   const dispatch = useAppDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const calcWalletChanges = (
-    old: RateData[] = oldData,
-    actual: RateData[] = newData,
-    am: Partial<CurrencyAmount> = amount
+    old: WalletData[] = oldData,
+    actual: RateData[] = newData
   ): { oldSum: number; newSum: number; sumChange: number } => {
+    const data = old.map((item) => item.data);
+    const am = old.map((item) => item.amount);
+
     let oldSum = 0;
     let newSum = 0;
     let sumChange = 0;
 
-    if (old.length > 0 && actual.length > 0 && !isObjectEmpty(am)) {
-      oldSum = old
-        .map((item) => parseFloat(item.priceUsd) * am[item.id]!)
+    if (old.length > 0 && actual.length > 0) {
+      oldSum = data
+        .map((item, ind) => parseFloat(item.priceUsd) * am[ind]!)
         .reduce((acc, curr) => acc + curr);
       newSum = actual
-        .map((item) => parseFloat(item.priceUsd) * am[item.id]!)
+        .map((item, ind) => parseFloat(item.priceUsd) * am[ind]!)
         .reduce((acc, curr) => acc + curr);
       sumChange = parseFloat((((newSum - oldSum) / newSum) * 100).toFixed(4));
     }

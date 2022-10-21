@@ -8,13 +8,14 @@ import * as F from '../../styled/Fonts';
 import * as W from './styled';
 
 const Wallet = () => {
-  const { oldData, newData, amount, isLoading } = useTypedSelector((state) => state.wallet);
+  const { oldData, newData, isLoading } = useTypedSelector((state) => state.wallet);
 
   const { getFromLocalStorage, removeFromWallet } = walletSlice.actions;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getWalletNewData(oldData));
+    const requestData = oldData.map((item) => item.data);
+    dispatch(getWalletNewData(requestData));
   }, [dispatch, oldData]);
 
   return (
@@ -38,7 +39,10 @@ const Wallet = () => {
             </W.TableRow>
           </W.TableHead>
           <W.TableBody>
-            {oldData.map((item) => {
+            {oldData.map((dataItem) => {
+              const item = dataItem.data;
+              const { amount } = dataItem;
+
               const newDataItem = newData.filter((curr) => curr.id === item.id);
               const oldPrice = Number(parseFloat(item.priceUsd).toFixed(2));
               const newPrice = newDataItem[0]
@@ -54,7 +58,7 @@ const Wallet = () => {
                   <W.TableCell>
                     <F.Subtitle>{item.name}</F.Subtitle>
                   </W.TableCell>
-                  <W.TableCell>{amount[item.id]}</W.TableCell>
+                  <W.TableCell>{amount}</W.TableCell>
                   <W.TableCell>${oldPrice}</W.TableCell>
                   <W.TableCell>${newPrice}</W.TableCell>
                   <W.TableCell>
