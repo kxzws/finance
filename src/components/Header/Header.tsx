@@ -35,9 +35,20 @@ const Header = () => {
       oldSum = data
         .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
         .reduce((acc, curr) => acc + curr);
-      newSum = actual
-        .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
+
+      newSum = data
+        .map((item, ind) => {
+          let newPrice = '0';
+          actual.forEach((sameItem) => {
+            if (item.id === sameItem.id) {
+              newPrice = sameItem.priceUsd;
+            }
+          });
+
+          return parseFloat(newPrice) * am[ind];
+        })
         .reduce((acc, curr) => acc + curr);
+
       sumChange = parseFloat((((newSum - oldSum) / newSum) * 100).toFixed(4));
     }
 
@@ -99,7 +110,7 @@ const Header = () => {
                 color={newSum - oldSum > 0 ? baseTheme.colors.success : baseTheme.colors.error}
               >
                 {newSum - oldSum > 0 ? '+' : null}
-                {(newSum - oldSum).toFixed(2)}
+                {(newSum - oldSum).toFixed(4)}
               </F.Text1>
               <F.Text1 color={sumChange > 0 ? baseTheme.colors.success : baseTheme.colors.error}>
                 ({sumChange}%)
