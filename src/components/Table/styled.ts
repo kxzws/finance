@@ -35,7 +35,7 @@ export const TableRow = styled.tr`
   }
 
   tbody &:hover button {
-    display: block;
+    visibility: visible;
   }
 `;
 

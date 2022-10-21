@@ -23,8 +23,8 @@ export const walletSlice = createSlice({
     removeFromWallet(state, action: PayloadAction<number>) {
       const walletIndex = action.payload;
 
-      const data = state.oldData.slice();
-      state.oldData = data.filter((_, ind) => ind !== walletIndex);
+      const oldD = state.oldData.slice();
+      state.oldData = oldD.filter((_, ind) => ind !== walletIndex);
     },
   },
   extraReducers: (builder) => {

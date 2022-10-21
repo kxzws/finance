@@ -33,10 +33,10 @@ const Header = () => {
 
     if (old.length > 0 && actual.length > 0) {
       oldSum = data
-        .map((item, ind) => parseFloat(item.priceUsd) * am[ind]!)
+        .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
         .reduce((acc, curr) => acc + curr);
       newSum = actual
-        .map((item, ind) => parseFloat(item.priceUsd) * am[ind]!)
+        .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
         .reduce((acc, curr) => acc + curr);
       sumChange = parseFloat((((newSum - oldSum) / newSum) * 100).toFixed(4));
     }

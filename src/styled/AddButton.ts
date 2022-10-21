@@ -19,7 +19,7 @@ const AddButton = styled.button`
   }
 
   table & {
-    display: none;
+    visibility: hidden;
   }
 `;
 

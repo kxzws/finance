@@ -4,6 +4,7 @@ import useTypedSelector from '../../hooks/useTypedSelector';
 import { walletSlice } from '../../redux/wallet/slices';
 import getWalletNewData from '../../redux/wallet/thunks';
 import baseTheme from '../../theme';
+import FlexWrapper from '../../styled/FlexWrapper';
 import * as F from '../../styled/Fonts';
 import * as W from './styled';
 
@@ -15,8 +16,16 @@ const Wallet = () => {
 
   useEffect(() => {
     const requestData = oldData.map((item) => item.data);
-    dispatch(getWalletNewData(requestData));
+    if (oldData.length > 0) {
+      dispatch(getWalletNewData(requestData));
+    }
   }, [dispatch, oldData]);
+
+  const handleRemoveBtnClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(removeFromWallet(index));
+  };
 
   return (
     <W.StyledWallet>
@@ -39,7 +48,7 @@ const Wallet = () => {
             </W.TableRow>
           </W.TableHead>
           <W.TableBody>
-            {oldData.map((dataItem) => {
+            {oldData.map((dataItem, ind) => {
               const item = dataItem.data;
               const { amount } = dataItem;
 
@@ -56,7 +65,15 @@ const Wallet = () => {
               return (
                 <W.TableRow key={item.id}>
                   <W.TableCell>
-                    <F.Subtitle>{item.name}</F.Subtitle>
+                    <FlexWrapper justifyContent="space-between" alignItems="baseline">
+                      <F.Subtitle>{item.name}</F.Subtitle>
+                      <W.RemoveButton
+                        type="button"
+                        onClick={(event) => handleRemoveBtnClick(event, ind)}
+                      >
+                        -
+                      </W.RemoveButton>
+                    </FlexWrapper>
                   </W.TableCell>
                   <W.TableCell>{amount}</W.TableCell>
                   <W.TableCell>${oldPrice}</W.TableCell>

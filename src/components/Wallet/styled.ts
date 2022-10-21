@@ -29,6 +29,10 @@ export const TableRow = styled.tr`
   tbody &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
+
+  tbody &:hover button {
+    visibility: visible;
+  }
 `;
 
 export const TableCell = styled.td`
@@ -36,5 +40,28 @@ export const TableCell = styled.td`
 
   &:nth-of-type(n + 2) {
     text-align: right;
+  }
+`;
+
+export const RemoveButton = styled.button`
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #3366cc;
+  border: none;
+  border-radius: 50%;
+  transition: transform ${({ theme }) => theme.durations.ms150}ms ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  table & {
+    visibility: hidden;
   }
 `;
