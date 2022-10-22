@@ -1,6 +1,7 @@
 const theme = {
   // in px
   container: 1200,
+  containerXL: 1380,
 
   colors: {
     primary: '#000',
@@ -11,22 +12,22 @@ const theme = {
   },
 
   fonts: {
-    // in px
+    // in rem
     sizes: {
-      title1: 48,
-      title2: 36,
-      subtitle: 20,
-      text1: 16,
-      text2: 14,
+      title1: 4.8,
+      title2: 2.8,
+      subtitle: 1.8,
+      text1: 1.6,
+      text2: 1.4,
     },
 
     // in px
     lineHeights: {
-      title1: 58,
-      title2: 44,
-      subtitle: 24,
-      text1: 19,
-      text2: 17,
+      title1: 5.8,
+      title2: 3.6,
+      subtitle: 2.2,
+      text1: 1.9,
+      text2: 1.7,
     },
 
     weights: {
@@ -38,18 +39,13 @@ const theme = {
   },
 
   media: {
-    extraLarge: '(max-width: 1140px)',
-    large: '(max-width: 960px)',
-    medium: '(max-width: 720px)',
-    small: '(max-width: 540px)',
-  },
-
-  // in px
-  sizes: {
-    header: { height: 56 },
-    container: { width: 1200 },
-    footer: { height: 128 },
-    modal: { width: 540 },
+    laptopL: '(max-width: 2560px)',
+    laptop: '(max-width: 1440px)',
+    midLapTab: '(max-width: 1220px)',
+    tablet: '(max-width: 1024px)',
+    mobileL: '(max-width: 768px)',
+    mobileM: '(max-width: 425px)',
+    mobileS: '(max-width: 375px)',
   },
 
   // in ms

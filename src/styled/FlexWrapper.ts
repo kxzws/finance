@@ -1,7 +1,13 @@
 import styled from 'styled-components';
 
 interface IFlexWrapperProps {
-  justifyContent: 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
+  justifyContent:
+    | 'flex-start'
+    | 'flex-end'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly'
+    | 'center';
   alignItems: 'flex-start' | 'flex-end' | 'baseline' | 'center';
 }
 

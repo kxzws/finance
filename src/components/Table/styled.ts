@@ -6,6 +6,12 @@ export const StyledTableCont = styled.section`
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   border-radius: 6px;
   box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
+
+  @media screen and ${({ theme }) => theme.media.tablet} {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 `;
 
 export const StyledTable = styled.table`
@@ -48,5 +54,9 @@ export const TableCell = styled.td`
 
   &:nth-of-type(n + 2) {
     text-align: right;
+  }
+
+  @media screen and ${({ theme }) => theme.media.mobileL} {
+    padding: 12px;
   }
 `;

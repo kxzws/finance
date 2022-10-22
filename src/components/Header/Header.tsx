@@ -78,7 +78,7 @@ const Header = () => {
     <>
       <H.StyledHeader>
         <CenterContainer>
-          <FlexWrapper justifyContent="flex-start" alignItems="center">
+          <H.FlexHeader>
             {top.map((item) => {
               const price = Number(parseFloat(item.priceUsd).toFixed(2));
               const percent = Number(parseFloat(item.changePercent24Hr).toFixed(2));
@@ -116,7 +116,7 @@ const Header = () => {
                 ({sumChange}%)
               </F.Text1>
             </H.Wallet>
-          </FlexWrapper>
+          </H.FlexHeader>
         </CenterContainer>
       </H.StyledHeader>
 

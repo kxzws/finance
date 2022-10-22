@@ -22,6 +22,16 @@ export const StyledModal = styled.div<{ isOpen: boolean }>`
   z-index: 7;
   background-color: #fff;
   border-radius: 8px;
+
+  @media screen and ${({ theme }) => theme.media.tablet} {
+    width: 80%;
+    left: 10%;
+  }
+
+  @media screen and ${({ theme }) => theme.media.mobileM} {
+    width: 95%;
+    left: 2.5%;
+  }
 `;
 
 export const CloseButton = styled.button`

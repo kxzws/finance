@@ -2,6 +2,13 @@ import styled from 'styled-components';
 
 export const StyledWallet = styled.div`
   padding: 20px;
+  padding-top: 0;
+
+  @media screen and ${({ theme }) => theme.media.mobileL} {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 `;
 
 export const StyledTable = styled.table`

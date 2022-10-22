@@ -22,7 +22,7 @@ const Wallet = () => {
     if (walletData.length > 0) {
       dispatch(getFromLocalStorage(walletData));
     }
-  }, [dispatch]);
+  }, [dispatch, getFromLocalStorage]);
 
   useEffect(() => {
     const requestData = oldData.map((item) => item.data);
@@ -32,7 +32,7 @@ const Wallet = () => {
       }
     });
     setWalletData(oldData);
-  }, [dispatch, oldData]);
+  }, [dispatch, cleanNewData, setWalletData, oldData]);
 
   const handleRemoveBtnClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
     e.stopPropagation();
@@ -41,70 +41,77 @@ const Wallet = () => {
   };
 
   return (
-    <W.StyledWallet>
-      <F.Title2 mBottom={20}>Портфель</F.Title2>
-      {oldData.length > 0 ? (
-        <W.StyledTable>
-          <W.TableHead>
-            <W.TableRow>
-              {[
-                'Название',
-                'Количество',
-                'Стоимость покупки',
-                'Актуальная стоимость',
-                'Изменение',
-              ].map((name) => (
-                <W.TableCell key={name}>
-                  <F.Text2>{name}</F.Text2>
-                </W.TableCell>
-              ))}
-            </W.TableRow>
-          </W.TableHead>
-          <W.TableBody>
-            {oldData.map((dataItem, ind) => {
-              const item = dataItem.data;
-              const { amount } = dataItem;
+    <>
+      <F.Title2 mTop={20} mLeft={20}>
+        Портфель
+      </F.Title2>
+      <W.StyledWallet>
+        {oldData.length > 0 ? (
+          <W.StyledTable>
+            <W.TableHead>
+              <W.TableRow>
+                {[
+                  'Название',
+                  'Количество',
+                  'Стоимость покупки',
+                  'Актуальная стоимость',
+                  'Изменение',
+                ].map((name) => (
+                  <W.TableCell key={name}>
+                    <F.Text2>{name}</F.Text2>
+                  </W.TableCell>
+                ))}
+              </W.TableRow>
+            </W.TableHead>
+            <W.TableBody>
+              {oldData.map((dataItem, ind) => {
+                const item = dataItem.data;
+                const { amount } = dataItem;
 
-              const newDataItem = newData.filter((curr) => curr.id === item.id);
-              const oldPrice = Number(parseFloat(item.priceUsd).toFixed(2));
-              const newPrice = newDataItem[0]
-                ? Number(parseFloat(newDataItem[0].priceUsd).toFixed(2))
-                : 0;
+                const newDataItem = newData.filter((curr) => curr.id === item.id);
+                const oldPrice = Number(parseFloat(item.priceUsd).toFixed(2));
+                const newPrice = newDataItem[0]
+                  ? Number(parseFloat(newDataItem[0].priceUsd).toFixed(2))
+                  : 0;
 
-              const percent = (((newPrice - oldPrice) / newPrice) * 100).toFixed(4);
+                const percent =
+                  newPrice === 0 ? -100 : (((newPrice - oldPrice) / newPrice) * 100).toFixed(4);
 
-              const isPositive = oldPrice < newPrice;
+                const isPositive = oldPrice < newPrice;
 
-              return (
-                <W.TableRow key={`${item.id + ind}`}>
-                  <W.TableCell>
-                    <FlexWrapper justifyContent="space-between" alignItems="baseline">
-                      <F.Subtitle>{item.name}</F.Subtitle>
-                      <W.RemoveButton
-                        type="button"
-                        onClick={(event) => handleRemoveBtnClick(event, ind)}
+                return (
+                  <W.TableRow key={`${item.id + ind}`}>
+                    <W.TableCell>
+                      <FlexWrapper justifyContent="space-between" alignItems="baseline">
+                        <F.Subtitle>{item.name}</F.Subtitle>
+                        <W.RemoveButton
+                          type="button"
+                          onClick={(event) => handleRemoveBtnClick(event, ind)}
+                        >
+                          -
+                        </W.RemoveButton>
+                      </FlexWrapper>
+                    </W.TableCell>
+                    <W.TableCell>{amount}</W.TableCell>
+                    <W.TableCell>${oldPrice}</W.TableCell>
+                    <W.TableCell>${newPrice}</W.TableCell>
+                    <W.TableCell>
+                      <F.Text1
+                        color={isPositive ? baseTheme.colors.success : baseTheme.colors.error}
                       >
-                        -
-                      </W.RemoveButton>
-                    </FlexWrapper>
-                  </W.TableCell>
-                  <W.TableCell>{amount}</W.TableCell>
-                  <W.TableCell>${oldPrice}</W.TableCell>
-                  <W.TableCell>${newPrice}</W.TableCell>
-                  <W.TableCell>
-                    <F.Text1 color={isPositive ? baseTheme.colors.success : baseTheme.colors.error}>
-                      {percent}%
-                    </F.Text1>
-                  </W.TableCell>
-                </W.TableRow>
-              );
-            })}
-          </W.TableBody>
-        </W.StyledTable>
-      ) : (
-        <F.Subtitle>Портфель пуст</F.Subtitle>
-      )}
-    </W.StyledWallet>
+                        {percent}%
+                      </F.Text1>
+                    </W.TableCell>
+                  </W.TableRow>
+                );
+              })}
+            </W.TableBody>
+          </W.StyledTable>
+        ) : (
+          <F.Subtitle>Портфель пуст</F.Subtitle>
+        )}
+      </W.StyledWallet>
+    </>
   );
 };
 

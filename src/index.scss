@@ -5,22 +5,39 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 14px;
   scroll-behavior: smooth;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  @media screen and (max-width: 1220px) {
+    font-size: 9px;
+    line-height: 9px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 8px;
+    line-height: 8px;
+  }
+
+  @media screen and (max-width: 425px) {
+    font-size: 7px;
+    line-height: 7px;
+  }
 }
 
 body {
   position: relative;
   font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: 400;
-  line-height: 19px;
+  line-height: 1.9rem;
   color: #000;
 }
-
-// ::-webkit-scrollbar {
-//   width: 0;
-// }
 
 a {
   font: inherit;

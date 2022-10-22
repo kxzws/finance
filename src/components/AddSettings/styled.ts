@@ -22,7 +22,7 @@ export const SuccessPar = styled.p<{ isSuccess: boolean }>`
 export const AddButton = styled.button`
   margin: 20px 0 0;
   padding: 12px 18px;
-  font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
+  font-size: ${({ theme }) => theme.fonts.sizes.subtitle}rem;
   font-weight: ${({ theme }) => theme.fonts.weights.w500};
   color: #fff;
   background-color: ${({ theme }) => theme.colors.bg};

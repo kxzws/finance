@@ -1,38 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { fetchCurrencyData, fetchCurrencyHistory } from '../../api/service';
 import { CurrencyHistoryData, RateData } from '../../api/types';
 import visualizeBigDigit from '../../utils/visualizeBigDigit';
 import baseTheme from '../../theme';
 import CenterContainer from '../../styled/CenterContainer';
-import * as F from '../../styled/Fonts';
 import FlexWrapper from '../../styled/FlexWrapper';
-import Chart from './Chart/Chart';
 import Modal from '../../components/Modal/Modal';
 import AddSettings from '../../components/AddSettings/AddSettings';
+import Chart from './Chart/Chart';
+import * as F from '../../styled/Fonts';
+import * as C from './styled';
 
 const LAST_24HR = -24;
-
-const StyledCurrency = styled.section`
-  padding: 20px 0;
-`;
-
-const AddButton = styled.button`
-  padding: 12px 18px;
-  font-size: ${({ theme }) => theme.fonts.sizes.subtitle};
-  font-weight: ${({ theme }) => theme.fonts.weights.w500};
-  color: #fff;
-  background-color: ${({ theme }) => theme.colors.bg};
-  border: none;
-  border-radius: 25px;
-  box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
-  transition: transform ${({ theme }) => theme.durations.ms200}ms ease 0s;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-`;
 
 const Currency = () => {
   const { id } = useParams();
@@ -63,20 +43,20 @@ const Currency = () => {
   };
 
   return (
-    <StyledCurrency>
+    <C.StyledCurrency>
       <CenterContainer>
         {data && history ? (
           <>
-            <FlexWrapper justifyContent="flex-start" alignItems="flex-start">
-              <F.Title1 mRight={20} mBottom={20}>
+            <C.FlexTitle>
+              <F.Title1 mRight={20}>
                 Топ {data.rank}: {data.name} ({data.id})
               </F.Title1>
-              <AddButton type="button" onClick={handleAddBtnClick}>
+              <C.AddButton type="button" onClick={handleAddBtnClick}>
                 Добавить
-              </AddButton>
-            </FlexWrapper>
+              </C.AddButton>
+            </C.FlexTitle>
 
-            <FlexWrapper justifyContent="space-between" alignItems="center">
+            <C.FlexInfo>
               <div>
                 <FlexWrapper justifyContent="flex-start" alignItems="center">
                   <F.Subtitle color="rgba(0, 0, 0, 0.7)" mRight={10}>
@@ -144,9 +124,11 @@ const Currency = () => {
                   </F.Title2>
                 </FlexWrapper>
               </div>
-            </FlexWrapper>
+            </C.FlexInfo>
 
-            <Chart history={history} />
+            <FlexWrapper justifyContent="center" alignItems="flex-start">
+              <Chart history={history} />
+            </FlexWrapper>
 
             <Modal isOpen={isModalOpen} onClose={closeModal}>
               <AddSettings data={data} />
@@ -156,7 +138,7 @@ const Currency = () => {
           <F.Subtitle>Не найдено</F.Subtitle>
         )}
       </CenterContainer>
-    </StyledCurrency>
+    </C.StyledCurrency>
   );
 };
 
