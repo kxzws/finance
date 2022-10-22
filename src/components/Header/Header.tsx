@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
+import parseFixedFloat from '../../utils/parseFixedFloat';
 import { RateData } from '../../api/types';
 import { WalletData } from '../../redux/wallet/types';
 import getTopRatesData from '../../redux/top/thunks';
@@ -84,8 +85,8 @@ const Header = () => {
               <Loading />
             ) : (
               top.map((item) => {
-                const price = Number(parseFloat(item.priceUsd).toFixed(2));
-                const percent = Number(parseFloat(item.changePercent24Hr).toFixed(2));
+                const price = Number(parseFixedFloat(item.priceUsd, 2));
+                const percent = Number(parseFixedFloat(item.changePercent24Hr, 2));
 
                 const isPositive = percent > 0;
 

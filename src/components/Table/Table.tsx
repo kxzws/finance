@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import visualizeBigDigit from '../../utils/visualizeBigDigit';
+import parseFixedFloat from '../../utils/parseFixedFloat';
 import { ITableProps } from '../../types/interfaces';
 import { RateData } from '../../api/types';
 import baseTheme from '../../theme';
@@ -65,12 +66,12 @@ const Table = (props: ITableProps) => {
             <Loading />
           ) : (
             data.map((item) => {
-              const price = Number(parseFloat(item.priceUsd).toFixed(2));
-              const marketCap = Number(parseFloat(item.marketCapUsd).toFixed(2));
-              const vwap24h = Number(parseFloat(item.vwap24Hr).toFixed(2));
-              const supply = Number(parseFloat(item.supply).toFixed(2));
-              const volume24h = Number(parseFloat(item.volumeUsd24Hr).toFixed(2));
-              const percent24h = Number(parseFloat(item.changePercent24Hr).toFixed(2));
+              const price = Number(parseFixedFloat(item.priceUsd, 2));
+              const marketCap = Number(parseFixedFloat(item.marketCapUsd, 2));
+              const vwap24h = Number(parseFixedFloat(item.vwap24Hr, 2));
+              const supply = Number(parseFixedFloat(item.supply, 2));
+              const volume24h = Number(parseFixedFloat(item.volumeUsd24Hr, 2));
+              const percent24h = Number(parseFixedFloat(item.changePercent24Hr, 2));
 
               const isPositive = percent24h > 0;
 

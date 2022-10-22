@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import useAppDispatch from '../../hooks/useAppDispatch';
+import parseFixedFloat from '../../utils/parseFixedFloat';
 import { walletSlice } from '../../redux/wallet/slices';
 import { IAddSettingsProps } from '../../types/interfaces';
 import baseTheme from '../../theme';
@@ -44,7 +45,7 @@ const AddSettings = (props: IAddSettingsProps) => {
     <A.StyledAddSettings>
       <F.Title2 mBottom={20}>Добавить в портфель</F.Title2>
       <F.Subtitle mBottom={14}>
-        {data?.name} – ${parseFloat(data?.priceUsd).toFixed(2)}
+        {data?.name} – ${parseFixedFloat(data?.priceUsd, 2)}
       </F.Subtitle>
       <A.AddInput type="number" value={value} step="0.01" min="0" onChange={handleChange} />
       <A.SuccessPar isSuccess={isSuccess}>

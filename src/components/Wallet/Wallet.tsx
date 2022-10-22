@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import useLocalStorage from 'use-local-storage';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useTypedSelector from '../../hooks/useTypedSelector';
+import parseFixedFloat from '../../utils/parseFixedFloat';
 import { walletSlice } from '../../redux/wallet/slices';
 import getWalletNewData from '../../redux/wallet/thunks';
 import { WalletData } from '../../redux/wallet/types';
@@ -69,13 +70,19 @@ const Wallet = () => {
                 const { amount } = dataItem;
 
                 const newDataItem = newData.filter((curr) => curr.id === item.id);
-                const oldPrice = Number(parseFloat(item.priceUsd).toFixed(2));
+                const oldPrice = Number(parseFixedFloat(item.priceUsd, 2));
                 const newPrice = newDataItem[0]
-                  ? Number(parseFloat(newDataItem[0].priceUsd).toFixed(2))
+                  ? Number(parseFixedFloat(newDataItem[0].priceUsd, 2))
                   : 0;
 
-                const percent =
-                  newPrice === 0 ? -100 : (((newPrice - oldPrice) / newPrice) * 100).toFixed(4);
+                let percent: number | string;
+                if (oldPrice === 0 && newPrice === 0) {
+                  percent = 0;
+                } else if (newPrice === 0) {
+                  percent = -100;
+                } else {
+                  percent = (((newPrice - oldPrice) / newPrice) * 100).toFixed(4);
+                }
 
                 const isPositive = oldPrice < newPrice;
 

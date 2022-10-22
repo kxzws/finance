@@ -7,6 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
+import parseFixedFloat from '../../../utils/parseFixedFloat';
 import { CurrencyHistoryData } from '../../../api/types';
 
 const Chart = (props: { history: CurrencyHistoryData[] }) => {
@@ -15,7 +16,7 @@ const Chart = (props: { history: CurrencyHistoryData[] }) => {
   const data = history.map((step) => {
     return {
       time: `${new Date(step.time).getHours()}ч`,
-      price: parseFloat(step.priceUsd).toFixed(2),
+      price: parseFixedFloat(step.priceUsd, 2),
     };
   });
 

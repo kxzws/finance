@@ -3,6 +3,8 @@ import styled from 'styled-components';
 export const StyledWallet = styled.div`
   padding: 20px;
   padding-top: 0;
+  max-height: 60vh;
+  overflow-y: auto;
 
   @media screen and ${({ theme }) => theme.media.mobileL} {
     display: block;

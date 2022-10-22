@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchCurrencyData, fetchCurrencyHistory } from '../../api/service';
 import { CurrencyHistoryData, RateData } from '../../api/types';
 import visualizeBigDigit from '../../utils/visualizeBigDigit';
+import parseFixedFloat from '../../utils/parseFixedFloat';
 import baseTheme from '../../theme';
 import CenterContainer from '../../styled/CenterContainer';
 import FlexWrapper from '../../styled/FlexWrapper';
@@ -72,16 +73,16 @@ const Currency = () => {
                       Стоимость:
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)" mRight={14}>
-                      ${parseFloat(data.priceUsd).toFixed(2)}
+                      ${parseFixedFloat(data.priceUsd, 2)}
                     </F.Title2>
                     <F.Subtitle
                       color={
-                        Number(parseFloat(data.changePercent24Hr).toFixed(2)) > 0
+                        Number(parseFixedFloat(data.changePercent24Hr, 2)) > 0
                           ? baseTheme.colors.success
                           : baseTheme.colors.error
                       }
                     >
-                      {parseFloat(data.changePercent24Hr).toFixed(2)}%
+                      {parseFixedFloat(data.changePercent24Hr, 2)}%
                     </F.Subtitle>
                   </FlexWrapper>
                   <FlexWrapper justifyContent="flex-start" alignItems="center">
@@ -89,7 +90,7 @@ const Currency = () => {
                       Средняя стоимость:
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)">
-                      ${parseFloat(data.vwap24Hr).toFixed(2)}
+                      ${parseFixedFloat(data.vwap24Hr, 2)}
                     </F.Title2>
                   </FlexWrapper>
                 </div>
@@ -100,7 +101,7 @@ const Currency = () => {
                       Капитализация:
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)" mRight={14}>
-                      ${visualizeBigDigit(Number(parseFloat(data.marketCapUsd).toFixed(2)))}
+                      ${visualizeBigDigit(Number(parseFixedFloat(data.marketCapUsd, 2)))}
                     </F.Title2>
                   </FlexWrapper>
                   <FlexWrapper justifyContent="flex-start" alignItems="center">
@@ -108,7 +109,7 @@ const Currency = () => {
                       Объём (24 ч.):
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)">
-                      ${visualizeBigDigit(Number(parseFloat(data.volumeUsd24Hr).toFixed(2)))}
+                      ${visualizeBigDigit(Number(parseFixedFloat(data.volumeUsd24Hr, 2)))}
                     </F.Title2>
                   </FlexWrapper>
                 </div>
@@ -119,7 +120,7 @@ const Currency = () => {
                       Предложение:
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)" mRight={14}>
-                      {visualizeBigDigit(Number(parseFloat(data.supply).toFixed(2)))}
+                      {visualizeBigDigit(Number(parseFixedFloat(data.supply, 2)))}
                     </F.Title2>
                   </FlexWrapper>
                   <FlexWrapper justifyContent="flex-start" alignItems="center">
@@ -128,7 +129,7 @@ const Currency = () => {
                     </F.Subtitle>
                     <F.Title2 color="rgba(0, 0, 0, 0.7)">
                       {data.maxSupply
-                        ? visualizeBigDigit(Number(parseFloat(data.maxSupply).toFixed(2)))
+                        ? visualizeBigDigit(Number(parseFixedFloat(data.maxSupply, 2)))
                         : '–'}
                     </F.Title2>
                   </FlexWrapper>
