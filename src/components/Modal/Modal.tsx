@@ -1,72 +1,30 @@
-import styled from 'styled-components';
 import { IModalProps } from '../../types/interfaces';
 import close from '../../assets/close.svg';
-
-export const StyledOverlay = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 5;
-  background-color: rgba(0, 0, 0, 0.2);
-`;
-
-export const StyledModal = styled.div<{ isOpen: boolean }>`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
-  width: 60%;
-  position: fixed;
-  top: 14%;
-  left: 20%;
-  z-index: 7;
-  background-color: #fff;
-  border-radius: 8px;
-
-  @media screen and ${({ theme }) => theme.media.tablet} {
-    width: 80%;
-    left: 10%;
-  }
-
-  @media screen and ${({ theme }) => theme.media.mobileM} {
-    width: 95%;
-    left: 2.5%;
-  }
-`;
-
-export const CloseButton = styled.button`
-  margin: 15px;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
-  border: none;
-`;
+import * as M from './styled';
 
 const Modal = (props: IModalProps) => {
   const { children, isOpen, onClose } = props;
 
   return (
     <>
-      <StyledOverlay
+      <M.StyledOverlay
         isOpen={isOpen}
         onClick={() => {
           onClose();
         }}
       />
 
-      <StyledModal isOpen={isOpen}>
-        <CloseButton
+      <M.StyledModal isOpen={isOpen}>
+        <M.CloseButton
           type="button"
           onClick={() => {
             onClose();
           }}
         >
           <img src={close} alt="close the modal" />
-        </CloseButton>
+        </M.CloseButton>
         {children}
-      </StyledModal>
+      </M.StyledModal>
     </>
   );
 };

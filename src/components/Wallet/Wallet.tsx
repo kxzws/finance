@@ -3,6 +3,7 @@ import useLocalStorage from 'use-local-storage';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import parseFixedFloat from '../../utils/parseFixedFloat';
+import getPercentChange from '../../utils/getPercentChange';
 import { walletSlice } from '../../redux/wallet/slices';
 import getWalletNewData from '../../redux/wallet/thunks';
 import { WalletData } from '../../redux/wallet/types';
@@ -10,6 +11,9 @@ import baseTheme from '../../theme';
 import FlexWrapper from '../../styled/FlexWrapper';
 import * as F from '../../styled/Fonts';
 import * as W from './styled';
+
+const NULL_CHANGE = 0;
+const FULL_CHANGE = -100;
 
 const Wallet = () => {
   const { oldData, newData } = useTypedSelector((state) => state.wallet);
@@ -77,11 +81,11 @@ const Wallet = () => {
 
                 let percent: number | string;
                 if (oldPrice === 0 && newPrice === 0) {
-                  percent = 0;
+                  percent = NULL_CHANGE;
                 } else if (newPrice === 0) {
-                  percent = -100;
+                  percent = FULL_CHANGE;
                 } else {
-                  percent = (((newPrice - oldPrice) / newPrice) * 100).toFixed(4);
+                  percent = getPercentChange(oldPrice, newPrice).toFixed(4);
                 }
 
                 const isPositive = oldPrice < newPrice;

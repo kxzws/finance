@@ -9,6 +9,8 @@ import FlexWrapper from '../../styled/FlexWrapper';
 import * as F from '../../styled/Fonts';
 import * as M from './styled';
 
+const FIRST_PAGE = 1;
+
 const Main = () => {
   const { rates, limit, offset, isLoading } = useTypedSelector((state) => state.rates);
 
@@ -20,7 +22,7 @@ const Main = () => {
   }, [dispatch, limit, offset]);
 
   const getPageNumber = (lim: number, off: number): number => {
-    let page = 1;
+    let page = FIRST_PAGE;
     if (off > 0) {
       page = off / lim + 1;
     }

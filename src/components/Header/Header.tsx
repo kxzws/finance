@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import parseFixedFloat from '../../utils/parseFixedFloat';
+import getPercentChange from '../../utils/getPercentChange';
 import { RateData } from '../../api/types';
 import { WalletData } from '../../redux/wallet/types';
 import getTopRatesData from '../../redux/top/thunks';
@@ -51,7 +52,7 @@ const Header = () => {
         })
         .reduce((acc, curr) => acc + curr);
 
-      sumChange = parseFloat((((newSum - oldSum) / newSum) * 100).toFixed(4));
+      sumChange = parseFloat(getPercentChange(oldSum, newSum).toFixed(4));
     }
 
     return {
