@@ -8,6 +8,7 @@ import FlexWrapper from '../../styled/FlexWrapper';
 import AddSettings from '../AddSettings/AddSettings';
 import Modal from '../Modal/Modal';
 import AddButton from '../../styled/AddButton';
+import Loading from '../../styled/Loading';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
 
@@ -60,39 +61,43 @@ const Table = (props: ITableProps) => {
           </T.TableRow>
         </T.TableHead>
         <T.TableBody>
-          {data.map((item) => {
-            const price = Number(parseFloat(item.priceUsd).toFixed(2));
-            const marketCap = Number(parseFloat(item.marketCapUsd).toFixed(2));
-            const vwap24h = Number(parseFloat(item.vwap24Hr).toFixed(2));
-            const supply = Number(parseFloat(item.supply).toFixed(2));
-            const volume24h = Number(parseFloat(item.volumeUsd24Hr).toFixed(2));
-            const percent24h = Number(parseFloat(item.changePercent24Hr).toFixed(2));
+          {isLoading ? (
+            <Loading />
+          ) : (
+            data.map((item) => {
+              const price = Number(parseFloat(item.priceUsd).toFixed(2));
+              const marketCap = Number(parseFloat(item.marketCapUsd).toFixed(2));
+              const vwap24h = Number(parseFloat(item.vwap24Hr).toFixed(2));
+              const supply = Number(parseFloat(item.supply).toFixed(2));
+              const volume24h = Number(parseFloat(item.volumeUsd24Hr).toFixed(2));
+              const percent24h = Number(parseFloat(item.changePercent24Hr).toFixed(2));
 
-            const isPositive = percent24h > 0;
+              const isPositive = percent24h > 0;
 
-            return (
-              <T.TableRow key={item.id} onClick={(event) => handleRowClick(event, item)}>
-                <T.TableCell>
-                  <FlexWrapper justifyContent="space-between" alignItems="baseline">
-                    <F.Subtitle>{item.name}</F.Subtitle>
-                    <AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
-                      +
-                    </AddButton>
-                  </FlexWrapper>
-                </T.TableCell>
-                <T.TableCell>${price}</T.TableCell>
-                <T.TableCell>${visualizeBigDigit(marketCap)}</T.TableCell>
-                <T.TableCell>${vwap24h}</T.TableCell>
-                <T.TableCell>{visualizeBigDigit(supply)}</T.TableCell>
-                <T.TableCell>${visualizeBigDigit(volume24h)}</T.TableCell>
-                <T.TableCell>
-                  <F.Text1 color={isPositive ? baseTheme.colors.success : baseTheme.colors.error}>
-                    {percent24h}%
-                  </F.Text1>
-                </T.TableCell>
-              </T.TableRow>
-            );
-          })}
+              return (
+                <T.TableRow key={item.id} onClick={(event) => handleRowClick(event, item)}>
+                  <T.TableCell>
+                    <FlexWrapper justifyContent="space-between" alignItems="baseline">
+                      <F.Subtitle>{item.name}</F.Subtitle>
+                      <AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
+                        +
+                      </AddButton>
+                    </FlexWrapper>
+                  </T.TableCell>
+                  <T.TableCell>${price}</T.TableCell>
+                  <T.TableCell>${visualizeBigDigit(marketCap)}</T.TableCell>
+                  <T.TableCell>${vwap24h}</T.TableCell>
+                  <T.TableCell>{visualizeBigDigit(supply)}</T.TableCell>
+                  <T.TableCell>${visualizeBigDigit(volume24h)}</T.TableCell>
+                  <T.TableCell>
+                    <F.Text1 color={isPositive ? baseTheme.colors.success : baseTheme.colors.error}>
+                      {percent24h}%
+                    </F.Text1>
+                  </T.TableCell>
+                </T.TableRow>
+              );
+            })
+          )}
         </T.TableBody>
       </T.StyledTable>
 

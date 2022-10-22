@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledMain = styled.main`
   padding: 20px 0 40px;
+  min-height: 90vh;
   background-color: ${({ theme }) => theme.colors.secondary};
 `;
 

@@ -11,7 +11,7 @@ import * as F from '../../styled/Fonts';
 import * as W from './styled';
 
 const Wallet = () => {
-  const { oldData, newData, isLoading } = useTypedSelector((state) => state.wallet);
+  const { oldData, newData } = useTypedSelector((state) => state.wallet);
 
   const { getFromLocalStorage, removeFromWallet, cleanNewData } = walletSlice.actions;
   const dispatch = useAppDispatch();

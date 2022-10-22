@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import {
   LineChart,
   Line,
@@ -9,14 +8,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { CurrencyHistoryData } from '../../../api/types';
-
-const Wrapper = styled.div`
-  @media screen and ${({ theme }) => theme.media.midLapTab} {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-`;
 
 const Chart = (props: { history: CurrencyHistoryData[] }) => {
   const { history } = props;
@@ -29,7 +20,6 @@ const Chart = (props: { history: CurrencyHistoryData[] }) => {
   });
 
   return (
-    // <Wrapper>
     <ResponsiveContainer width="100%" height={500}>
       <LineChart
         width={1140}
@@ -48,7 +38,6 @@ const Chart = (props: { history: CurrencyHistoryData[] }) => {
         <Line type="linear" dataKey="price" stroke="#F0731C" activeDot={{ r: 6 }} />
       </LineChart>
     </ResponsiveContainer>
-    // </Wrapper>
   );
 };
 
