@@ -24,6 +24,7 @@ export const FlexTitle = styled.div`
 
 export const AddButton = styled(PrimaryButton)`
   padding: 12px 18px;
-  max-width: 200px;
+  max-width: 160px;
+  min-width: 90px;
   flex: 1 1 200px;
 `;
