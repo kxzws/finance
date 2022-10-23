@@ -114,7 +114,7 @@ const Currency = () => {
                   </FlexWrapper>
                 </div>
 
-                <div>
+                <div style={{ maxWidth: '500px', flex: '1 1 500px' }}>
                   <FlexWrapper justifyContent="flex-start" alignItems="center">
                     <F.Subtitle color="rgba(0, 0, 0, 0.7)" mRight={10}>
                       Предложение:
