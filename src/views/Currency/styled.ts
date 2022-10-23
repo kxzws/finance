@@ -10,6 +10,7 @@ export const FlexInfo = styled.div`
   align-items: center;
   row-gap: 10px;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
 `;
 
 export const FlexTitle = styled.div`
@@ -19,6 +20,7 @@ export const FlexTitle = styled.div`
   align-items: flex-start;
   row-gap: 10px;
   flex-wrap: wrap;
+  -webkit-flex: 1 1 auto;
 `;
 
 export const AddButton = styled.button`
