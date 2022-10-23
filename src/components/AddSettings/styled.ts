@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PrimaryButton from '../../styled/PrimaryButton';
 
 export const StyledAddSettings = styled.section`
   padding: 40px 0;
@@ -19,24 +20,12 @@ export const SuccessPar = styled.p<{ isSuccess: boolean }>`
   display: ${({ isSuccess }) => (isSuccess ? 'block' : 'none')};
 `;
 
-export const AddButton = styled.button`
+export const AddButton = styled(PrimaryButton)`
   margin: 20px 0 0;
   padding: 12px 18px;
-  font-size: ${({ theme }) => theme.fonts.sizes.subtitle}rem;
-  font-weight: ${({ theme }) => theme.fonts.weights.w500};
-  color: #fff;
-  background-color: ${({ theme }) => theme.colors.bg};
-  border: none;
-  border-radius: 25px;
-  box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
-  transition: transform ${({ theme }) => theme.durations.ms200}ms ease 0s;
 
-  &:hover {
-    transform: translateY(-2px);
-
-    &:disabled {
-      transform: none;
-    }
+  &:hover:disabled {
+    transform: none;
   }
 
   &:disabled {

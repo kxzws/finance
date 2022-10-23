@@ -8,7 +8,6 @@ import baseTheme from '../../theme';
 import FlexWrapper from '../../styled/FlexWrapper';
 import AddSettings from '../AddSettings/AddSettings';
 import Modal from '../Modal/Modal';
-import AddButton from '../../styled/AddButton';
 import Loading from '../../styled/Loading';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
@@ -80,9 +79,12 @@ const Table = (props: ITableProps) => {
                   <T.TableCell>
                     <FlexWrapper justifyContent="space-between" alignItems="baseline">
                       <F.Subtitle>{item.name}</F.Subtitle>
-                      <AddButton type="button" onClick={(event) => handleAddBtnClick(event, item)}>
+                      <T.AddButton
+                        type="button"
+                        onClick={(event) => handleAddBtnClick(event, item)}
+                      >
                         +
-                      </AddButton>
+                      </T.AddButton>
                     </FlexWrapper>
                   </T.TableCell>
                   <T.TableCell>${price}</T.TableCell>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PrimaryButton from '../../styled/PrimaryButton';
 
 export const StyledHeader = styled.header`
   padding: 20px 0;
@@ -36,21 +37,9 @@ export const Wallet = styled.div`
   }
 `;
 
-export const WalletButton = styled.button`
+export const WalletButton = styled(PrimaryButton)`
   margin-right: 16px;
   padding: 16px 22px;
-  font-size: ${({ theme }) => theme.fonts.sizes.subtitle}rem;
-  font-weight: ${({ theme }) => theme.fonts.weights.w500};
-  color: #fff;
-  background-color: ${({ theme }) => theme.colors.bg};
-  border: none;
-  border-radius: 25px;
-  box-shadow: rgb(0 0 0 / 40%) 0px 2px 15px -3px;
-  transition: transform ${({ theme }) => theme.durations.ms200}ms ease 0s;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
 
   @media screen and ${({ theme }) => theme.media.laptop} {
     padding: 12px 18px;

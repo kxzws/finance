@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as Table from '../../styled/Table';
 
 export const StyledWallet = styled.div`
   padding: 20px;
@@ -13,64 +14,22 @@ export const StyledWallet = styled.div`
   }
 `;
 
-export const StyledTable = styled.table`
+export const StyledTable = styled(Table.StyledTable)`
   margin: 20px 0;
-  width: 100%;
-  border-collapse: collapse;
 `;
 
-export const TableHead = styled.thead`
-  background-color: rgba(0, 0, 0, 0.03);
-`;
+export const TableHead = styled(Table.TableHead)``;
 
-export const TableBody = styled.tbody`
+export const TableBody = styled(Table.TableBody)`
   word-break: break-word;
 `;
 
-export const TableRow = styled.tr`
-  border-top: 1px solid ${({ theme }) => theme.colors.secondary};
-  transition: background-color ${({ theme }) => theme.durations.ms150}ms ease;
+export const TableRow = styled(Table.TableRow)``;
 
-  tbody & {
-    cursor: pointer;
-  }
-
-  tbody &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  tbody &:hover button {
-    visibility: visible;
-  }
-`;
-
-export const TableCell = styled.td`
+export const TableCell = styled(Table.TableCell)`
   padding: 10px;
-
-  &:nth-of-type(n + 2) {
-    text-align: right;
-  }
 `;
 
-export const RemoveButton = styled.button`
-  height: 20px;
-  width: 20px;
-  font-size: 16px;
-  color: #fff;
+export const RemoveButton = styled(Table.TableButton)`
   background-color: #3366cc;
-  border: none;
-  border-radius: 50%;
-  transition: transform ${({ theme }) => theme.durations.ms150}ms ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  table & {
-    visibility: hidden;
-  }
 `;

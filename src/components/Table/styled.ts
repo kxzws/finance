@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as Table from '../../styled/Table';
 
 export const StyledTableCont = styled.section`
   margin: 20px 20px 0;
@@ -14,49 +15,28 @@ export const StyledTableCont = styled.section`
   }
 `;
 
-export const StyledTable = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-`;
+export const StyledTable = styled(Table.StyledTable)``;
 
-export const TableHead = styled.thead`
-  background-color: rgba(0, 0, 0, 0.03);
+export const TableHead = styled(Table.TableHead)`
   border-radius: 6px;
 `;
 
-export const TableBody = styled.tbody`
-  word-break: break-word;
-`;
+export const TableBody = styled(Table.TableBody)``;
 
-export const TableRow = styled.tr`
-  border-top: 1px solid ${({ theme }) => theme.colors.secondary};
-  transition: background-color ${({ theme }) => theme.durations.ms150}ms ease;
+export const TableRow = styled(Table.TableRow)``;
 
-  tbody & {
-    cursor: pointer;
-  }
-
-  tbody &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  tbody &:hover button {
-    visibility: visible;
-  }
-`;
-
-export const TableCell = styled.td`
+export const TableCell = styled(Table.TableCell)`
   padding: 16px;
 
   &:nth-of-type(1) {
     max-width: 300px;
   }
 
-  &:nth-of-type(n + 2) {
-    text-align: right;
-  }
-
   @media screen and ${({ theme }) => theme.media.mobileL} {
     padding: 12px;
   }
+`;
+
+export const AddButton = styled(Table.TableButton)`
+  background-color: ${({ theme }) => theme.colors.bg};
 `;
