@@ -4,6 +4,7 @@ import useAppDispatch from '../../hooks/useAppDispatch';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import parseFixedFloat from '../../utils/parseFixedFloat';
 import getPercentChange from '../../utils/getPercentChange';
+import constants from '../../utils/constants';
 import { walletSlice } from '../../redux/wallet/slices';
 import getWalletNewData from '../../redux/wallet/thunks';
 import { WalletData } from '../../redux/wallet/types';
@@ -12,13 +13,10 @@ import FlexWrapper from '../../styled/FlexWrapper';
 import * as F from '../../styled/Fonts';
 import * as W from './styled';
 
-const NULL_CHANGE = 0;
-const FULL_CHANGE = -100;
-
 const Wallet = () => {
   const { oldData, newData } = useTypedSelector((state) => state.wallet);
 
-  const { getFromLocalStorage, removeFromWallet, cleanNewData } = walletSlice.actions;
+  const { getFromLocalStorage, removeFromWallet } = walletSlice.actions;
   const dispatch = useAppDispatch();
 
   const [walletData, setWalletData] = useLocalStorage<WalletData[]>('kxzws-wallet', []);
@@ -31,13 +29,9 @@ const Wallet = () => {
 
   useEffect(() => {
     const requestData = oldData.map((item) => item.data);
-    dispatch(getWalletNewData(requestData)).then(() => {
-      if (oldData.length === 0) {
-        dispatch(cleanNewData());
-      }
-    });
+    dispatch(getWalletNewData(requestData));
     setWalletData(oldData);
-  }, [dispatch, cleanNewData, setWalletData, oldData]);
+  }, [dispatch, setWalletData, oldData]);
 
   const handleRemoveBtnClick = (e: React.MouseEvent<HTMLButtonElement>, index: number) => {
     e.stopPropagation();
@@ -81,9 +75,9 @@ const Wallet = () => {
 
                 let percent: number | string;
                 if (oldPrice === 0 && newPrice === 0) {
-                  percent = NULL_CHANGE;
+                  percent = constants.WALLET.NULL_CHANGE;
                 } else if (newPrice === 0) {
-                  percent = FULL_CHANGE;
+                  percent = constants.WALLET.FULL_CHANGE;
                 } else {
                   percent = getPercentChange(oldPrice, newPrice).toFixed(4);
                 }

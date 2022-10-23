@@ -3,6 +3,7 @@ import useTypedSelector from '../../hooks/useTypedSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import parseFixedFloat from '../../utils/parseFixedFloat';
 import getPercentChange from '../../utils/getPercentChange';
+import constants from '../../utils/constants';
 import { RateData } from '../../api/types';
 import { WalletData } from '../../redux/wallet/types';
 import getTopRatesData from '../../redux/top/thunks';
@@ -34,7 +35,7 @@ const Header = () => {
     let newSum = 0;
     let sumChange = 0;
 
-    if (old.length > 0 && actual.length > 0) {
+    if (old.length > 0) {
       oldSum = data
         .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
         .reduce((acc, curr) => acc + curr);
@@ -52,7 +53,13 @@ const Header = () => {
         })
         .reduce((acc, curr) => acc + curr);
 
-      sumChange = parseFloat(getPercentChange(oldSum, newSum).toFixed(4));
+      if (oldSum === 0 && newSum === 0) {
+        sumChange = constants.WALLET.NULL_CHANGE;
+      } else if (newSum === 0) {
+        sumChange = constants.WALLET.FULL_CHANGE;
+      } else {
+        sumChange = parseFloat(getPercentChange(oldSum, newSum).toFixed(4));
+      }
     }
 
     return {
