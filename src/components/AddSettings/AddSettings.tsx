@@ -7,9 +7,7 @@ import baseTheme from '../../theme';
 import * as F from '../../styled/Fonts';
 import * as A from './styled';
 
-const AddSettings = (props: IAddSettingsProps) => {
-  const { data } = props;
-
+const AddSettings = ({ data }: IAddSettingsProps) => {
   const { addToWallet } = walletSlice.actions;
   const dispatch = useAppDispatch();
 

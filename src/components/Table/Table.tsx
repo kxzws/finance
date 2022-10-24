@@ -12,9 +12,7 @@ import Loading from '../../styled/Loading';
 import * as F from '../../styled/Fonts';
 import * as T from './styled';
 
-const Table = (props: ITableProps) => {
-  const { data, loadData, isLoading } = props;
-
+const Table = ({ data, loadData, isLoading }: ITableProps) => {
   const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

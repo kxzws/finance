@@ -10,9 +10,7 @@ import {
 import parseFixedFloat from '../../../utils/parseFixedFloat';
 import { CurrencyHistoryData } from '../../../api/types';
 
-const Chart = (props: { history: CurrencyHistoryData[] }) => {
-  const { history } = props;
-
+const Chart = ({ history }: { history: CurrencyHistoryData[] }) => {
   const data = history.map((step) => {
     return {
       time: `${new Date(step.time).getHours()}ч`,

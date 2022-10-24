@@ -6,7 +6,7 @@ const StyledNotFound = styled.section`
   padding: 20px 0;
 `;
 
-const NotFouned = () => {
+const NotFound = () => {
   return (
     <StyledNotFound>
       <CenterContainer>
@@ -17,4 +17,4 @@ const NotFouned = () => {
   );
 };
 
-export default NotFouned;
+export default NotFound;

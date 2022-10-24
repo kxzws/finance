@@ -2,9 +2,7 @@ import { IModalProps } from '../../types/interfaces';
 import close from '../../assets/close.svg';
 import * as M from './styled';
 
-const Modal = (props: IModalProps) => {
-  const { children, isOpen, onClose } = props;
-
+const Modal = ({ children, isOpen, onClose }: IModalProps) => {
   return (
     <>
       <M.StyledOverlay
