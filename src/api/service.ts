@@ -22,7 +22,7 @@ export const fetchRatesData = async (
 
 export const fetchSearchCurrencyData = async (search: string[]): Promise<RatesData> => {
   try {
-    if (search.length === 0) {
+    if (!search.length) {
       return {
         data: [],
         timestamp: Date.now(),

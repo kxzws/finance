@@ -22,7 +22,7 @@ const Wallet = () => {
   const [walletData, setWalletData] = useLocalStorage<WalletData[]>('kxzws-wallet', []);
 
   useEffect(() => {
-    if (walletData.length > 0) {
+    if (walletData.length) {
       dispatch(getFromLocalStorage(walletData));
     }
   }, [dispatch, getFromLocalStorage]);
@@ -45,7 +45,7 @@ const Wallet = () => {
         Портфель
       </F.Title2>
       <W.StyledWallet>
-        {oldData.length > 0 ? (
+        {oldData.length ? (
           <W.StyledTable>
             <W.TableHead>
               <W.TableRow>
@@ -74,9 +74,9 @@ const Wallet = () => {
                   : 0;
 
                 let percent: number | string;
-                if (oldPrice === 0 && newPrice === 0) {
+                if (!oldPrice && !newPrice) {
                   percent = constants.WALLET.NULL_CHANGE;
-                } else if (newPrice === 0) {
+                } else if (!newPrice) {
                   percent = constants.WALLET.FULL_CHANGE;
                 } else {
                   percent = getPercentChange(oldPrice, newPrice).toFixed(4);

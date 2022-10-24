@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import useTypedSelector from '../../hooks/useTypedSelector';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import parseFixedFloat from '../../utils/parseFixedFloat';
-import getPercentChange from '../../utils/getPercentChange';
-import constants from '../../utils/constants';
-import { RateData } from '../../api/types';
-import { WalletData } from '../../redux/wallet/types';
+import calcWalletChanges from '../../utils/calcWalletChanges';
 import getTopRatesData from '../../redux/top/thunks';
 import baseTheme from '../../theme';
 import CenterContainer from '../../styled/CenterContainer';
@@ -22,54 +19,12 @@ const Header = () => {
 
   const dispatch = useAppDispatch();
 
+  const { oldSum, newSum, sumChange } = useMemo(
+    () => calcWalletChanges(oldData, newData),
+    [oldData, newData]
+  );
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const calcWalletChanges = (
-    old: WalletData[] = oldData,
-    actual: RateData[] = newData
-  ): { oldSum: number; newSum: number; sumChange: number } => {
-    const data = old.map((item) => item.data);
-    const am = old.map((item) => item.amount);
-
-    let oldSum = 0;
-    let newSum = 0;
-    let sumChange = 0;
-
-    if (old.length > 0) {
-      oldSum = data
-        .map((item, ind) => parseFloat(item.priceUsd) * am[ind])
-        .reduce((acc, curr) => acc + curr);
-
-      newSum = data
-        .map((item, ind) => {
-          let newPrice = '0';
-          actual.forEach((sameItem) => {
-            if (item.id === sameItem.id) {
-              newPrice = sameItem.priceUsd;
-            }
-          });
-
-          return parseFloat(newPrice) * am[ind];
-        })
-        .reduce((acc, curr) => acc + curr);
-
-      if (oldSum === 0 && newSum === 0) {
-        sumChange = constants.WALLET.NULL_CHANGE;
-      } else if (newSum === 0) {
-        sumChange = constants.WALLET.FULL_CHANGE;
-      } else {
-        sumChange = parseFloat(getPercentChange(oldSum, newSum).toFixed(4));
-      }
-    }
-
-    return {
-      oldSum,
-      newSum,
-      sumChange,
-    };
-  };
-
-  const { oldSum, newSum, sumChange } = calcWalletChanges();
 
   useEffect(() => {
     dispatch(getTopRatesData());

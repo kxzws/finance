@@ -23,7 +23,7 @@ const Main = () => {
 
   const getPageNumber = (lim: number, off: number): number => {
     let page = FIRST_PAGE;
-    if (off > 0) {
+    if (off) {
       page = off / lim + 1;
     }
     return page;
@@ -38,11 +38,11 @@ const Main = () => {
             onClick={() => {
               dispatch(prevPage());
             }}
-            disabled={offset === 0}
+            disabled={!offset}
           >
             ←
           </M.PageButton>
-          {offset === 0 ? null : (
+          {!offset ? null : (
             <M.FirstPageButton
               type="button"
               onClick={() => {
