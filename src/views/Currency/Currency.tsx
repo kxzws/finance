@@ -20,23 +20,27 @@ const Currency = () => {
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<RateData>();
-  const [history, setHistory] = useState<CurrencyHistoryData[]>();
+  const [data, setData] = useState<RateData | null>(null);
+  const [history, setHistory] = useState<CurrencyHistoryData[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
       setIsLoading(true);
+      try {
+        const dataResponse = await fetchCurrencyData(id as string);
+        const currency = dataResponse.data;
+        setData(currency[0]);
 
-      const dataResponse = await fetchCurrencyData(id as string);
-      const currency = dataResponse.data;
-      setData(currency[0]);
-
-      const historyResponse = await fetchCurrencyHistory(id as string);
-      const currencyHistory = historyResponse.data.slice(LAST_24HR);
-      setHistory(currencyHistory);
-
-      setIsLoading(false);
+        const historyResponse = await fetchCurrencyHistory(id as string);
+        const currencyHistory = historyResponse.data.slice(LAST_24HR);
+        setHistory(currencyHistory);
+      } catch {
+        setData(null);
+        setHistory([]);
+      } finally {
+        setIsLoading(false);
+      }
     })();
   }, [id]);
 

@@ -30,7 +30,7 @@ const Table = (props: ITableProps) => {
   };
 
   const handleRowClick = (e: React.MouseEvent<unknown>, row: RateData) => {
-    navigate(`/id/${row.id}`);
+    navigate(`/${row.id}`);
   };
 
   const handleAddBtnClick = (e: React.MouseEvent<HTMLButtonElement>, currency: RateData) => {
