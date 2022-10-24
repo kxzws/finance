@@ -7,6 +7,13 @@ export const StyledAddSettings = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const AddInput = styled.input`
@@ -14,10 +21,6 @@ export const AddInput = styled.input`
   background-color: transparent;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: 6px;
-`;
-
-export const SuccessPar = styled.p<{ isSuccess: boolean }>`
-  display: ${({ isSuccess }) => (isSuccess ? 'block' : 'none')};
 `;
 
 export const AddButton = styled(PrimaryButton)`

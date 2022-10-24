@@ -1,41 +1,27 @@
-import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import useAppDispatch from '../../hooks/useAppDispatch';
 import parseFixedFloat from '../../utils/parseFixedFloat';
 import { walletSlice } from '../../redux/wallet/slices';
-import { IAddSettingsProps } from '../../types/interfaces';
+import { IAddSettingsData, IAddSettingsProps } from '../../types/interfaces';
 import baseTheme from '../../theme';
 import * as F from '../../styled/Fonts';
 import * as A from './styled';
 
 const AddSettings = ({ data }: IAddSettingsProps) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IAddSettingsData>();
+
   const { addToWallet } = walletSlice.actions;
   const dispatch = useAppDispatch();
 
-  const [value, setValue] = useState<number | undefined>(0);
-  const [isSuccess, setIsSuccess] = useState<boolean>(false);
-
-  const toggleIsSuccess = () => {
-    setIsSuccess(true);
-    setTimeout(() => {
-      setIsSuccess(false);
-    }, 1000);
-  };
-
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    if (!(e.target as HTMLInputElement).value) {
-      setValue(undefined);
-      return;
-    }
-    const input = (e.target as HTMLInputElement).value.replace(',', '.');
-    setValue(parseFloat(input));
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (data && value) {
-      dispatch(addToWallet({ data, amount: value }));
-      toggleIsSuccess();
+  const onSubmit: SubmitHandler<IAddSettingsData> = (submitData) => {
+    if (data) {
+      dispatch(addToWallet({ data, amount: submitData.quantity }));
+      reset();
     }
   };
 
@@ -45,13 +31,23 @@ const AddSettings = ({ data }: IAddSettingsProps) => {
       <F.Subtitle mBottom={14}>
         {data?.name} – ${parseFixedFloat(data?.priceUsd, 2)}
       </F.Subtitle>
-      <A.AddInput type="number" value={value} step="0.01" min="0" onChange={handleChange} />
-      <A.SuccessPar isSuccess={isSuccess}>
-        <F.Text1 color={baseTheme.colors.success}>Транзакция успешна</F.Text1>
-      </A.SuccessPar>
-      <A.AddButton type="button" onClick={handleClick} disabled={!value}>
-        Добавить
-      </A.AddButton>
+
+      <form action="#" onSubmit={handleSubmit(onSubmit)}>
+        <A.AddInput
+          type="number"
+          min="0"
+          step="0.01"
+          {...register('quantity', {
+            required: true,
+            valueAsNumber: true,
+            min: 0,
+            validate: (value) => value > 0,
+          })}
+          style={errors.quantity ? { border: `1px solid ${baseTheme.colors.error}` } : undefined}
+        />
+
+        <A.AddButton type="submit">Добавить</A.AddButton>
+      </form>
     </A.StyledAddSettings>
   ) : null;
 };

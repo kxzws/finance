@@ -15,3 +15,7 @@ export interface IModalProps {
 export interface IAddSettingsProps {
   data: RateData | null;
 }
+
+export interface IAddSettingsData {
+  quantity: number;
+}
