@@ -1,8 +1,8 @@
-# Getting Started with Create finance app
+# Getting Started with finance app
 
 In the project directory, you can run:
 
-### `npm start`
+`npm start`
 
 ## Deploy
 
